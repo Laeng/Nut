@@ -129,7 +129,7 @@ public class EntityFallingBlock extends Entity {
             Vector3 pos = (new Vector3(x - 0.5, y, z - 0.5)).round();
 
             if (onGround) {
-                kill();
+                close();
                 Block block = level.getBlock(pos);
                 if (block.getId() > 0 && block.isTransparent() && !block.canBeReplaced()) {
                     if (this.level.getGameRules().getBoolean(GameRule.DO_ENTITY_DROPS)) {
@@ -174,5 +174,10 @@ public class EntityFallingBlock extends Entity {
     public void saveNBT() {
         namedTag.putInt("TileID", blockId);
         namedTag.putByte("Data", damage);
+    }
+
+    @Override
+    public boolean canBeMovedByCurrents() {
+        return false;
     }
 }
